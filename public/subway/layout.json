@@ -1,0 +1,198 @@
+{
+ "stops": {
+  "title": {
+   "pos": [
+    3.9,
+    -3.2,
+    1.55
+   ],
+   "look": [
+    -0.3,
+    10.0,
+    1.3
+   ],
+   "fov": 62
+  },
+  "map": {
+   "pos": [
+    2.0,
+    11.4,
+    1.75
+   ],
+   "look": [
+    5.0,
+    13.3,
+    1.95
+   ],
+   "fov": 55
+  },
+  "board": {
+   "pos": [
+    3.0,
+    13.2,
+    1.6
+   ],
+   "look": [
+    3.2,
+    19.0,
+    2.55
+   ],
+   "fov": 55
+  },
+  "newsstand": {
+   "pos": [
+    2.0,
+    66.5,
+    1.7
+   ],
+   "look": [
+    3.4,
+    72,
+    1.9
+   ],
+   "fov": 55
+  },
+  "exit": {
+   "pos": [
+    3.1,
+    75.0,
+    1.6
+   ],
+   "look": [
+    3.35,
+    83.0,
+    2.8
+   ],
+   "fov": 60
+  },
+  "project:college-app-atlas": {
+   "pos": [
+    2.0,
+    25.0,
+    1.7
+   ],
+   "look": [
+    5.0,
+    27.2,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:purchase-intent": {
+   "pos": [
+    2.0,
+    31.0,
+    1.7
+   ],
+   "look": [
+    5.0,
+    33.2,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:new-york-census": {
+   "pos": [
+    2.0,
+    37.0,
+    1.7
+   ],
+   "look": [
+    5.0,
+    39.2,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:folio": {
+   "pos": [
+    2.0,
+    43.0,
+    1.7
+   ],
+   "look": [
+    5.0,
+    45.2,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:agent00hl7": {
+   "pos": [
+    2.0,
+    49.0,
+    1.7
+   ],
+   "look": [
+    5.0,
+    51.2,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:dream-team": {
+   "pos": [
+    2.0,
+    55.0,
+    1.7
+   ],
+   "look": [
+    5.0,
+    57.2,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:neurobiome": {
+   "pos": [
+    2.0,
+    61.0,
+    1.7
+   ],
+   "look": [
+    5.0,
+    63.2,
+    1.95
+   ],
+   "fov": 55
+  }
+ },
+ "projectY0": 27.0,
+ "projectStep": 6.0,
+ "lines": {
+  "data": {
+   "name": "Data line",
+   "letter": "D",
+   "color": "#e8732c",
+   "stops": [
+    "new-york-census",
+    "purchase-intent",
+    "college-app-atlas"
+   ]
+  },
+  "health": {
+   "name": "Health line",
+   "letter": "H",
+   "color": "#2a9d8f",
+   "stops": [
+    "agent00hl7",
+    "dream-team",
+    "neurobiome"
+   ]
+  },
+  "words": {
+   "name": "Words line",
+   "letter": "W",
+   "color": "#c2508a",
+   "stops": [
+    "folio",
+    "reading"
+   ]
+  }
+ },
+ "station": [
+  -10.0,
+  90.0
+ ],
+ "titleSignY": 6.0
+}
