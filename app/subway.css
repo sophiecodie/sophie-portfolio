@@ -73,3 +73,33 @@
   .sw-hero,.sw-caption{left:12px;right:12px;bottom:12px;max-width:none}
   .sw-panel ~ .sw-caption{display:none}
 }
+
+/* Dollhouse overview, level walk controls, and the case-study card that grows out of a lightbox */
+.sw-overview{width:min(340px,calc(100% - 48px))}
+.sw-overview .sw-lede{margin:0 0 12px;font-size:14px;color:#4a3d2e}
+.sw-level{border-top:1px solid rgba(42,34,25,.12);padding:10px 0}
+.sw-level-head{display:block!important;width:100%;text-align:left;font-weight:800!important;font-size:16px;letter-spacing:.02em}
+.sw-level-head span{display:block;font-weight:400;font-size:12px;color:var(--soft);margin-top:2px}
+.sw-objs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.sw-objs button{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(42,34,25,.07);font-size:13px;text-align:left}
+.sw-objs button:hover,.sw-objs button:focus-visible,.sw-level-head:focus-visible,.sw-chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.sw-chips{display:flex;flex-wrap:wrap;gap:6px}
+.sw-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:rgba(42,34,25,.07);font-size:13px}
+.sw-chip.on{background:var(--ink);color:#fff3d6}
+.sw-hint{font-size:12px;color:var(--soft);margin:8px 0 0}
+.sw-walk{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;gap:8px;z-index:5}
+.sw-walk .sw-btn:disabled{opacity:.4;cursor:default}
+.sw-dim{position:fixed;inset:0;background:rgba(20,12,8,.38);backdrop-filter:blur(2px);opacity:0;transition:opacity .5s;z-index:25;pointer-events:auto}
+.sw-dim.on{opacity:1}
+.sw-card{position:fixed;z-index:30;width:min(600px,calc(100vw - 48px));max-height:calc(100vh - 48px);overflow:auto;padding:24px;border-radius:18px;background:var(--cream);color:var(--ink);box-shadow:0 24px 60px rgba(20,10,0,.35);font-size:15px;line-height:1.55;will-change:transform,opacity}
+.sw-card h2{font-family:var(--sw-serif),Georgia,serif;font-size:28px;line-height:1.1;margin:0}
+.sw-card ul{padding-left:18px;margin:10px 0}
+.sw-card li{margin:6px 0}
+.sw-card-close{position:absolute;top:12px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(42,34,25,.08);font-size:14px}
+.sw-card-close:focus-visible{outline:2px solid var(--gold)}
+.sw-skip{position:absolute;left:24px;bottom:16px;padding:6px 12px;border-radius:999px;background:rgba(42,34,25,.08);font-size:12px;font-weight:600}
+.sw-card .sw-about img,.sw-card .sw-pimg{max-width:100%}
+@media (max-width:760px){
+  .sw-overview{top:auto;left:12px;right:12px;bottom:12px;width:auto;max-height:50vh}
+  .sw-card{width:calc(100vw - 24px);padding:18px}
+}

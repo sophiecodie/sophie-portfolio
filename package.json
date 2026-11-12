@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "compress": "gltf-transform draco public/subway/station.glb public/subway/station.glb && gltf-transform draco public/subway/train.glb public/subway/train.glb"
+    "compress": "gltf-transform draco public/subway/station.glb public/subway/station.glb && gltf-transform draco public/subway/station-dollhouse.glb public/subway/station-dollhouse.glb && gltf-transform draco public/subway/train.glb public/subway/train.glb"
   },
   "dependencies": {
     "next": "14.2.35",

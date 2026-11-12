@@ -1,0 +1,460 @@
+{
+ "stops": {
+  "overview": {
+   "pos": [
+    -30.0,
+    16.0,
+    9.0
+   ],
+   "look": [
+    0.0,
+    26.0,
+    3.5
+   ],
+   "fov": 40
+  },
+  "title": {
+   "pos": [
+    3.9,
+    -3.2,
+    1.55
+   ],
+   "look": [
+    -0.3,
+    10.0,
+    1.3
+   ],
+   "fov": 62
+  },
+  "map": {
+   "pos": [
+    2.0,
+    4.4,
+    6.15
+   ],
+   "look": [
+    5.0,
+    6.3,
+    6.3500000000000005
+   ],
+   "fov": 55
+  },
+  "board": {
+   "pos": [
+    3.0,
+    8.2,
+    6.0
+   ],
+   "look": [
+    3.2,
+    14.0,
+    5.800000000000001
+   ],
+   "fov": 55
+  },
+  "newsstand": {
+   "pos": [
+    2.0,
+    16.5,
+    6.1000000000000005
+   ],
+   "look": [
+    3.4,
+    22.0,
+    6.300000000000001
+   ],
+   "fov": 55
+  },
+  "exit": {
+   "pos": [
+    -1.2,
+    27.0,
+    6.0
+   ],
+   "look": [
+    0.0,
+    34.0,
+    6.800000000000001
+   ],
+   "fov": 60
+  },
+  "street": {
+   "pos": [
+    -1.0,
+    37.6,
+    9.9
+   ],
+   "look": [
+    1.5,
+    48.4,
+    10.100000000000001
+   ],
+   "fov": 58
+  },
+  "project:college-app-atlas": {
+   "pos": [
+    2.0,
+    12.0,
+    1.7
+   ],
+   "look": [
+    5.0,
+    14.2,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:purchase-intent": {
+   "pos": [
+    2.0,
+    16.4,
+    1.7
+   ],
+   "look": [
+    5.0,
+    18.599999999999998,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:new-york-census": {
+   "pos": [
+    2.0,
+    20.8,
+    1.7
+   ],
+   "look": [
+    5.0,
+    23.0,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:folio": {
+   "pos": [
+    2.0,
+    25.200000000000003,
+    1.7
+   ],
+   "look": [
+    5.0,
+    27.400000000000002,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:agent00hl7": {
+   "pos": [
+    2.0,
+    29.6,
+    1.7
+   ],
+   "look": [
+    5.0,
+    31.8,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:dream-team": {
+   "pos": [
+    2.0,
+    34.0,
+    1.7
+   ],
+   "look": [
+    5.0,
+    36.2,
+    1.95
+   ],
+   "fov": 55
+  },
+  "project:neurobiome": {
+   "pos": [
+    2.0,
+    38.400000000000006,
+    1.7
+   ],
+   "look": [
+    5.0,
+    40.60000000000001,
+    1.95
+   ],
+   "fov": 55
+  }
+ },
+ "hotspots": [
+  {
+   "id": "title",
+   "level": "platform",
+   "c": [
+    3.15,
+    6.0,
+    2.85
+   ],
+   "s": [
+    3.2,
+    1.8,
+    1.2
+   ]
+  },
+  {
+   "id": "project:college-app-atlas",
+   "level": "platform",
+   "c": [
+    4.9,
+    14.0,
+    2.2
+   ],
+   "s": [
+    0.5,
+    4.2,
+    2.4
+   ]
+  },
+  {
+   "id": "project:purchase-intent",
+   "level": "platform",
+   "c": [
+    4.9,
+    18.4,
+    2.2
+   ],
+   "s": [
+    0.5,
+    4.2,
+    2.4
+   ]
+  },
+  {
+   "id": "project:new-york-census",
+   "level": "platform",
+   "c": [
+    4.9,
+    22.8,
+    2.2
+   ],
+   "s": [
+    0.5,
+    4.2,
+    2.4
+   ]
+  },
+  {
+   "id": "project:folio",
+   "level": "platform",
+   "c": [
+    4.9,
+    27.200000000000003,
+    2.2
+   ],
+   "s": [
+    0.5,
+    4.2,
+    2.4
+   ]
+  },
+  {
+   "id": "project:agent00hl7",
+   "level": "platform",
+   "c": [
+    4.9,
+    31.6,
+    2.2
+   ],
+   "s": [
+    0.5,
+    4.2,
+    2.4
+   ]
+  },
+  {
+   "id": "project:dream-team",
+   "level": "platform",
+   "c": [
+    4.9,
+    36.0,
+    2.2
+   ],
+   "s": [
+    0.5,
+    4.2,
+    2.4
+   ]
+  },
+  {
+   "id": "project:neurobiome",
+   "level": "platform",
+   "c": [
+    4.9,
+    40.400000000000006,
+    2.2
+   ],
+   "s": [
+    0.5,
+    4.2,
+    2.4
+   ]
+  },
+  {
+   "id": "map",
+   "level": "mezzanine",
+   "c": [
+    4.9,
+    6.0,
+    6.300000000000001
+   ],
+   "s": [
+    0.5,
+    4.0,
+    2.6
+   ]
+  },
+  {
+   "id": "board",
+   "level": "mezzanine",
+   "c": [
+    3.25,
+    14.0,
+    5.800000000000001
+   ],
+   "s": [
+    1.0,
+    3.4,
+    2.4
+   ]
+  },
+  {
+   "id": "newsstand",
+   "level": "mezzanine",
+   "c": [
+    3.85,
+    22.0,
+    6.0
+   ],
+   "s": [
+    1.6,
+    3.2,
+    3.4
+   ]
+  },
+  {
+   "id": "exit",
+   "level": "mezzanine",
+   "c": [
+    0.0,
+    33.2,
+    6.4
+   ],
+   "s": [
+    2.8,
+    6.6,
+    4.0
+   ]
+  },
+  {
+   "id": "street",
+   "level": "street",
+   "c": [
+    0.0,
+    46.4,
+    11.3
+   ],
+   "s": [
+    20.0,
+    14.0,
+    6.0
+   ]
+  },
+  {
+   "id": "level:platform",
+   "level": "platform",
+   "c": [
+    0.0,
+    25.0,
+    2.05
+   ],
+   "s": [
+    10.0,
+    58.0,
+    4.1
+   ]
+  },
+  {
+   "id": "level:mezzanine",
+   "level": "mezzanine",
+   "c": [
+    0.0,
+    25.0,
+    6.2
+   ],
+   "s": [
+    10.0,
+    58.0,
+    3.5999999999999996
+   ]
+  },
+  {
+   "id": "level:street",
+   "level": "street",
+   "c": [
+    0.0,
+    25.0,
+    9.8
+   ],
+   "s": [
+    24.0,
+    58.0,
+    3.0
+   ]
+  }
+ ],
+ "walk": {
+  "platform": [
+   "title",
+   "project:college-app-atlas",
+   "project:purchase-intent",
+   "project:new-york-census",
+   "project:folio",
+   "project:agent00hl7",
+   "project:dream-team",
+   "project:neurobiome"
+  ],
+  "mezzanine": [
+   "map",
+   "board",
+   "newsstand",
+   "exit"
+  ],
+  "street": [
+   "street"
+  ]
+ },
+ "levels": {
+  "platform": {
+   "floor": 0.2,
+   "ceiling": 4.0
+  },
+  "mezzanine": {
+   "floor": 4.4,
+   "ceiling": 8.0
+  },
+  "street": {
+   "floor": 8.3,
+   "ceiling": null
+  }
+ },
+ "station": {
+  "yMin": -4.0,
+  "yMax": 54.0,
+  "xHalf": 5.0,
+  "streetHalf": 12.0
+ },
+ "train": {
+  "stopY": 10.0,
+  "parkY": -80.0
+ },
+ "projectY0": 14.0,
+ "projectStep": 4.4,
+ "titleSignY": 6.0
+}
