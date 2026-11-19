@@ -1,0 +1,92 @@
+<!doctype html>
+<!--
+  Source for the platform posters (public/subway/posters/<id>.jpg).
+  Each project is a different kind of real NYC ad. Each poster is drawn here in HTML/CSS and saved as a JPEG by render_posters.js (Playwright).
+  The images are hung over the lightboxes on the platform by components/posters/posterWall.ts.
+  Open posters.html?id=folio in a browser to see one poster.
+-->
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Franklin:wght@300;400;500;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1376px;height:816px;overflow:hidden;background:#000}
+/* the frame: brushed dark aluminum, like the real platform ad frames */
+#frame{position:absolute;inset:0;background:linear-gradient(160deg,#6d6d6a,#3a3a38 40%,#262624 60%,#4f4f4c);padding:34px;border-radius:10px}
+#frame:before{content:"";position:absolute;inset:26px;border-radius:4px;box-shadow:inset 0 0 0 2px rgba(0,0,0,.6)}
+#p{position:relative;width:100%;height:100%;overflow:hidden;font-family:'Libre Franklin',sans-serif}
+#p:after{content:"";position:absolute;inset:0;background:linear-gradient(118deg,rgba(255,255,255,.16),transparent 30%,transparent 75%,rgba(255,255,255,.05));pointer-events:none}
+.bul{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;color:#fff;font:700 52px 'Libre Franklin';width:84px;height:84px;flex:none;line-height:1}
+.art{background-size:cover;background-position:center;background-repeat:no-repeat}
+/* dictionary (Folio) */
+.dict{background:#fbfaf6;height:100%;padding:70px 80px;color:#111;font-family:Newsreader;position:relative}
+.dict .w{font:400 200px/0.9 Newsreader;letter-spacing:-.025em}
+.dict .pr{font:400 52px Newsreader;margin-top:26px}
+.dict .pr i{font-style:normal;margin-left:22px}
+.dict .def{font:400 50px/1.22 Newsreader;margin-top:22px;max-width:780px}
+.dict .hand{font:500 46px/1.05 Caveat;color:#8b8b8b;margin-top:26px;letter-spacing:.06em;text-transform:uppercase}
+.dict .url{position:absolute;left:80px;bottom:52px;font:400 40px Newsreader;display:flex;gap:18px;align-items:center}
+.dict .url .bul{width:58px;height:58px;font-size:34px}
+.se{background:#21307a;height:100%;display:flex;padding:22px}
+.se .side{flex:0 0 44%;display:flex;flex-direction:column;justify-content:space-between;padding:30px 30px 20px 26px}
+.se h1{overflow:hidden;font:400 100px/0.93 Anton;color:#ffb347;text-transform:uppercase}
+.se .foot{font:400 44px Anton;color:#ffb347;text-transform:uppercase}
+.se .art{flex:1}
+.orange{background:#f08a2c;height:100%;display:flex;align-items:center;padding:0 70px;gap:40px;color:#fff}
+.orange .q{font:500 54px 'Libre Franklin';color:#fff3e0}
+.orange .big{font:900 230px/0.95 'Libre Franklin'}
+.orange .s{font:500 40px/1.25 'Libre Franklin';color:#fff3e0;max-width:560px}
+.orange .tag{font:800 30px 'Libre Franklin';margin-top:34px;color:#fff}
+.census{display:flex;height:100%;background:#ee352e}
+.census .art{flex:0 0 58%;background-position:80% 50%}
+.census .side{flex:1;padding-top:96px !important;color:#fff;padding:56px 44px;display:flex;flex-direction:column;justify-content:space-between}
+.census h1{overflow:hidden;font:900 82px/1.02 'Libre Franklin'}
+.census .s{font:500 34px/1.3 'Libre Franklin'}
+.black{background:#111;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f2f2f2;text-align:center}
+.black .t{font:300 104px/1.12 'Libre Franklin'}
+.black .s{font:800 36px 'Libre Franklin';margin-top:56px;letter-spacing:.04em}
+.quote{background:#1e3f8a;height:100%;display:flex;color:#fff}
+.quote .side{flex:0 0 58%;padding:56px 54px;display:flex;flex-direction:column;justify-content:space-between}
+.quote .t{font:700 96px/1.05 'Libre Franklin'}
+.quote .t:before{content:"“";display:block;font:900 200px/0.6 Newsreader;color:#8fb3ff;height:80px}
+.quote .s{font:400 36px/1.35 'Libre Franklin';color:#dbe6ff}
+.quote .st{background:#fff;color:#111;border-radius:14px;padding:20px 26px;font:800 42px/1.1 'Libre Franklin';align-self:flex-start}
+.quote .st small{display:block;font:500 28px 'Libre Franklin';color:#555;margin-top:6px}
+.quote .art{flex:1;min-width:0;margin:34px 34px 34px 0;border-radius:16px;overflow:hidden;display:block}
+.gut{background:#fdf1d8;height:100%;display:flex}
+.gut .side{flex:0 0 48%;padding:60px 50px;display:flex;flex-direction:column;justify-content:center}
+.gut .t{font:400 140px/0.92 Anton;color:#1f5a3a;text-transform:uppercase}
+.gut .s{font:500 40px/1.3 'Libre Franklin';color:#3b4a3f;margin-top:30px}
+.gut .art{flex:1;min-width:0;display:block}
+.side{min-width:0}
+.mix-bul{position:absolute;right:30px;top:30px;box-shadow:0 0 0 6px #fff}
+</style></head><body><div id="frame"><div id="p"></div></div>
+<script>
+const R="#ee352e",G="#00933c",P="#b933ad";
+const A="../../public/assets/projects/";
+const D={
+ "college-app-atlas":{n:"1",c:R,img:"college-app-atlas.svg"},
+ "purchase-intent":{n:"2",c:R},
+ "new-york-census":{n:"3",c:R,img:"new-york-census.jpg",pos:"85% 50%"},
+ "folio":{n:"4",c:P},
+ "agent00hl7":{n:"5",c:G},
+ "dream-team":{n:"6",c:G},
+ "neurobiome":{n:"7",c:G},
+};
+const q=new URLSearchParams(location.search), id=q.get("id")||"college-app-atlas", p=D[id];
+const bg=(img,pos,size)=>`background-image:url(${A+img});background-position:${pos||"center"};${size?`background-size:${size};background-color:#fff`:""}`;
+const bags=`<svg viewBox="0 0 200 150" style="width:420px;flex:none"><path d="M30 150 L40 60 L100 60 L110 150Z" fill="#fff6ea"/><path d="M55 60 C55 30 85 30 85 60" stroke="#fff6ea" stroke-width="6" fill="none"/><path d="M95 150 L108 75 L172 75 L182 150Z" fill="#d9c2a3"/><path d="M122 75 C122 48 158 48 158 75" stroke="#d9c2a3" stroke-width="6" fill="none"/></svg>`;
+// a different kind of real ad for each project
+const B=`<span class="bul mix-bul" style="background:${p.c}">${p.n}</span>`;
+const html={
+   "college-app-atlas":`<div class="se"><div class="side"><h1>Write the essay only you could write</h1><div class="foot">College App Atlas</div></div><div class="art" style="${bg(p.img,"40% 60%")}"></div></div>${B}`,
+   "purchase-intent":`<div class="orange">${bags}<div><div class="q">Just browsing?</div><div class="big">90%</div><div class="s">of the time, we can tell you’re about to check out.</div><div class="tag">Online Purchase Intent · Random Forest</div></div></div>${B}`,
+   "new-york-census":`<div class="census"><div class="art" style="${bg(p.img,p.pos)}"></div><div class="side"><h1>55 neighborhoods. One subway line.</h1><div class="s">The New York Census Line<br>Ride the data.</div></div></div>${B}`,
+   "folio":`<div class="dict"><div class="w">folio</div><div class="pr">[fō-lē-ō]<i>noun</i></div><div class="def" style="max-width:1100px">one feed for news from every side, new science preprints, and pop culture.</div><div class="hand">read past your own bubble</div><div class="url">folio · sophie shih</div></div>${B}`,
+   "agent00hl7":`<div class="black"><div class="t">Scan results?<br>Read them like a letter.</div><div class="s">AGENT00HL7</div></div>${B}`,
+   "dream-team":`<div class="quote"><div class="side"><div class="t">I found my specialist.</div><div class="s">Four AI agents read the report, picked the doctor, and booked the visit.</div><div class="st">Dream Team<small>SIIM Hackathon · 2nd place</small></div></div><object class="art" type="image/svg+xml" data="art/dream-team.svg" aria-hidden="true"></object></div>${B}`,
+   "neurobiome":`<div class="gut"><div class="side"><div class="t">Trust your gut.</div><div class="s">It talks to your brain. Neurobiome Navigator explains how.</div></div><object class="art" type="image/svg+xml" data="art/neurobiome.svg" aria-hidden="true"></object></div>${B}`,
+}[id];
+document.getElementById("p").innerHTML=html;
+// shrink a headline until no word sticks out of its column
+document.fonts.ready.then(()=>{for(const h of document.querySelectorAll(".se h1,.census h1")){let fs=parseFloat(getComputedStyle(h).fontSize);while(h.scrollWidth>h.clientWidth+1&&fs>40){fs-=4;h.style.fontSize=fs+"px";}}window.__fitted=true;});
+</script></body></html>

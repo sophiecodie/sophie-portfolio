@@ -10,6 +10,11 @@ from mathutils import Vector
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = os.path.join(HERE, "fonts")
+# Wayfinding typeface: the NYC subway font (Brandon Sugiyama, nycsubwayfont.com, licensed).
+# Put the licensed file in blender/fonts/ as NYCSubway.otf (or .ttf) and it is used everywhere
+# signage text is set. Until then the Inter fallback is used.
+SIGN_FONT = "NYCSubway"
+SIGN_FONT_SLOTS = ("Inter_wght_800", "Inter_wght_500")
 R = math.radians
 
 # Project palette (matches data/projects.ts order on the site)
@@ -278,10 +283,21 @@ def tube(name, points, r, m=None, res=8):
     return o
 
 
+def _font_file(name):
+    for ext in (".otf", ".ttf"):
+        p = os.path.join(FONTS, name + ext)
+        if os.path.exists(p):
+            return p
+    return None
+
+
 def text(body, loc, size, font="Inter_wght_800", m=None, extrude=0.0, rot=(R(90), 0, 0),
          align="CENTER", valign="CENTER", spacing=1.0, bevel=0.0):
+    # Wayfinding text uses SIGN_FONT; the Inter fallback keeps the build running until the file is added.
+    if font in SIGN_FONT_SLOTS:
+        font = SIGN_FONT if _font_file(SIGN_FONT) else "Inter_wght_800"
     c = bpy.data.curves.new("T", "FONT"); c.body = body
-    c.font = bpy.data.fonts.load(os.path.join(FONTS, font + ".ttf"), check_existing=True)
+    c.font = bpy.data.fonts.load(_font_file(font) or os.path.join(FONTS, font + ".ttf"), check_existing=True)
     c.size = size; c.extrude = extrude; c.align_x = align; c.align_y = valign
     c.space_character = spacing; c.bevel_depth = bevel
     c.resolution_u = 4; c.bevel_resolution = 1

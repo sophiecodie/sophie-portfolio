@@ -33,6 +33,22 @@ def mezz_floor(M, y0, y1):
             _box("cut_mezz_floor", -WALL_X, WALL_X, y0, y1, MEZ_EARTH_TOP, MEZ, M["floor"])]
 
 
+def mezz_floor_open(M, y0, y1, hole):
+    """mezz_floor with an opening (x0, x1, ya, yb) for the stairs down to the platform."""
+    hx0, hx1, ha, hb = hole
+    out = []
+    for name, xa, xb, z0, z1, m in (("cut_mezz_earth", -EARTH_X, EARTH_X, MEZ_SLAB_BOT, MEZ_EARTH_TOP, M["earth"]),
+                                    ("cut_mezz_floor", -WALL_X, WALL_X, MEZ_EARTH_TOP, MEZ, M["floor"])):
+        if ha > y0:
+            out.append(_box(name + "_a", xa, xb, y0, ha, z0, z1, m))
+        if y1 > hb:
+            out.append(_box(name + "_b", xa, xb, hb, y1, z0, z1, m))
+        out.append(_box(name + "_l", xa, hx0, ha, hb, z0, z1, m))
+        if xb > hx1:
+            out.append(_box(name + "_r", hx1, xb, ha, hb, z0, z1, m))
+    return out
+
+
 def street(M, y0, y1):
     """Street slab: earth below, sidewalk on top. It is open over the stairs, and it
     doubles as the mezzanine's ceiling everywhere else."""

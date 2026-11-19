@@ -1,4 +1,4 @@
-/* Subway portfolio overlay. Warm cream panels over the baked 3D station. */
+/* Subway portfolio overlay over the baked 3D station. The last section restyles every card as an MTA station sign. */
 .sw-root{position:fixed;inset:0;overflow:hidden;background:#2a211c;font-family:var(--sw-sans),system-ui,sans-serif;color:#2a2219;
   --cream:#fff8ec;--ink:#2a2219;--soft:#6b5d4a;--gold:#f2c24c;--panel:rgba(255,248,236,.9)}
 .sw-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
@@ -103,3 +103,175 @@
   .sw-overview{top:auto;left:12px;right:12px;bottom:12px;width:auto;max-height:50vh}
   .sw-card{width:calc(100vw - 24px);padding:18px}
 }
+
+/* ------------------------------------------------------------------ Station signs
+   Every card, panel and the opening are black MTA-style signs: a white rule, white
+   Libre Franklin, numbered route bullets, and an amber LED strip set in Subway Ticker
+   (Keith Bates / K-Type, free for personal use) that types itself out. */
+@font-face{font-family:"Subway Ticker";src:url("/fonts/SubwayTicker.ttf") format("truetype");font-display:swap}
+.sw-root{font-family:var(--sw-franklin),var(--sw-sans),"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --sign:#161616;--sign-frame:#2f3b36;--sign-line:#3a3a3a;--sign-soft:#bdbdbd;--led:#ff9a1f;--led-dim:rgba(255,154,31,.10)}
+.sw-bullet{font-family:var(--sw-franklin),Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:-.02em}
+
+/* the sign itself */
+.sw-sign{background:var(--sign)!important;color:#fff!important;border-radius:6px!important;padding:0!important;backdrop-filter:none!important;
+  box-shadow:0 0 0 6px var(--sign-frame),0 0 0 7px #1d2522,0 24px 60px rgba(0,0,0,.5)!important}
+.sw-sign-body{padding:16px 24px 22px}
+.sw-sign-body::before{content:"";display:block;height:3px;background:#fff;margin:0 -24px 16px}
+.sw-sign h1,.sw-sign h2{font-family:var(--sw-franklin),Helvetica,Arial,sans-serif;font-weight:700;color:#fff;letter-spacing:-.015em;line-height:1.05;margin:0}
+.sw-sign h1{font-size:clamp(30px,4.2vw,46px);margin-bottom:4px}
+.sw-sign h2{font-size:clamp(26px,3.4vw,34px)}
+.sw-sign-head{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.sw-sign .sw-sub{margin:6px 0 0;color:var(--sign-soft);font-size:13px;font-weight:500;line-height:1.35}
+.sw-sign .sw-desc{font-weight:700;font-size:17px;line-height:1.45;color:#fff;margin:0 0 14px}
+.sw-sign .sw-label{font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sign-soft);margin:18px 0 8px}
+.sw-bullets{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 16px}
+.sw-bullets button,.sw-info button{border-radius:50%;transition:transform .15s}
+.sw-bullets button:hover,.sw-info button:hover{transform:translateY(-2px)}
+.sw-bullets button:focus-visible,.sw-info button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.sw-hl{list-style:none;padding:0!important;margin:0 0 12px!important}
+.sw-hl li{position:relative;padding-left:20px;margin:8px 0!important;color:#e8e8e8;font-weight:500;font-size:15px;line-height:1.45}
+.sw-hl li::before{content:"";position:absolute;left:2px;top:.5em;width:8px;height:8px;border-radius:50%;background:#fff}
+.sw-info{display:flex;align-items:center;flex-wrap:wrap;gap:8px;border-top:1px solid var(--sign-line);padding:10px 0;font-size:14px;font-weight:600;color:#fff}
+.sw-info a{color:#fff}
+.sw-info > span:last-child{flex:1 1 12em;min-width:0}
+.sw-glyph{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:4px;background:#fff;color:#161616;font-size:15px;flex:none}
+.sw-sign .sw-pimg{border-radius:3px;border:1px solid var(--sign-line);margin:0 0 12px}
+.sw-sign .sw-covers figcaption{color:var(--sign-soft)}
+.sw-sign .sw-writing a{color:#fff}.sw-sign .sw-writing span{color:var(--sign-soft)}
+.sw-sign .sw-about img{width:64px;height:64px;border:3px solid #fff}
+.sw-sign .sw-row{margin-top:14px}
+
+/* buttons, sign style: white tabs, or outlined on black */
+.sw-btn{background:#fff!important;color:#111!important;border-radius:4px;font-weight:700!important}
+.sw-btn.ghost{background:rgba(22,22,22,.88)!important;color:#fff!important;box-shadow:inset 0 0 0 2px #fff}
+.sw-btn:hover,.sw-btn:focus-visible{outline:2px solid var(--led);outline-offset:2px}
+
+/* the LED strip */
+.sw-ticker{position:relative;min-height:calc(1.25em + 20px);padding:10px 56px 10px 24px;background-color:#0a0a0a;
+  background-image:radial-gradient(var(--led-dim) 1px,transparent 1.5px);background-size:4px 4px;
+  font-family:"Subway Ticker",ui-monospace,Menlo,monospace;font-size:21px;line-height:1.25;letter-spacing:.06em;color:var(--led);
+  text-shadow:0 0 4px rgba(255,154,31,.85),0 0 12px rgba(255,120,20,.45);white-space:pre-wrap;word-break:break-word}
+.sw-caret{display:inline-block;width:.55em;height:.95em;margin-left:.12em;vertical-align:-.1em;background:currentColor;box-shadow:0 0 6px rgba(255,154,31,.8)}
+.sw-caret.done{animation:sw-blink 1s steps(1) infinite}
+@keyframes sw-blink{50%{opacity:0}}
+.sw-led{font-family:"Subway Ticker",ui-monospace,Menlo,monospace;color:var(--led);letter-spacing:.08em;font-size:18px;text-shadow:0 0 6px rgba(255,154,31,.7)}
+
+/* the opening sign on the platform */
+.sw-hero.sw-sign{max-width:min(580px,calc(100% - 48px));bottom:28px;left:28px}
+.sw-hero .sw-desc{font-size:16px}
+
+/* the case-study card */
+.sw-card.sw-sign{width:min(640px,calc(100vw - 48px));line-height:1.5}
+.sw-card-close{top:9px!important;right:12px!important;background:rgba(255,255,255,.12)!important;color:#fff!important;z-index:2}
+.sw-card-close:focus-visible{outline:2px solid #fff!important}
+.sw-skip{position:sticky!important;left:auto!important;bottom:12px!important;display:block;margin:0 0 12px 24px;background:#fff!important;color:#111!important;border-radius:4px!important}
+
+/* the other panels share the sign look */
+.sw-panel,.sw-caption,.sw-nav,.sw-list-inner{background:rgba(22,22,22,.94)!important;color:#fff;backdrop-filter:none;border-radius:6px;
+  box-shadow:0 0 0 4px var(--sign-frame),0 14px 40px rgba(0,0,0,.4)}
+.sw-panel h2,.sw-list-head h2{font-family:var(--sw-franklin),Helvetica,Arial,sans-serif;font-weight:700;color:#fff}
+.sw-eyebrow{color:var(--sign-soft);font-weight:700;letter-spacing:.14em}
+.sw-nav nav{color:var(--sign-soft)}.sw-nav nav button[aria-current="true"],.sw-nav nav button:hover{color:#fff}
+.sw-name{font-weight:700!important}
+.sw-all{background:#fff!important;color:#111!important;border-radius:4px}
+.sw-tip{background:#fff;color:#111;border-radius:4px;font-weight:700}
+.sw-overview .sw-lede,.sw-caption p{color:#e6e6e6}
+.sw-level,.sw-line{border-top-color:var(--sign-line)}
+.sw-level-head span,.sw-hint{color:var(--sign-soft)}
+.sw-objs button,.sw-chip{background:rgba(255,255,255,.08);border-radius:4px;color:#fff}
+.sw-chip.on{background:#fff;color:#111}
+.sw-objs button:hover,.sw-objs button:focus-visible,.sw-level-head:focus-visible,.sw-chip:focus-visible{outline-color:#fff}
+.sw-stops li::before{background:#161616;border-color:#fff}
+.sw-stops button{color:#fff}
+.sw-board{background:rgba(10,10,10,.96)!important}
+.sw-board-row{border-bottom-color:#262626;font-family:"Subway Ticker",ui-monospace,Menlo,monospace;font-size:17px;letter-spacing:.05em;color:var(--led);text-shadow:0 0 5px rgba(255,154,31,.6)}
+.sw-board-row em{color:var(--led)}
+.sw-board-row:first-of-type em{color:#7dff9a;text-shadow:0 0 5px rgba(125,255,154,.6)}
+.sw-list{background:rgba(10,10,10,.6)}
+.sw-list li button,.sw-list li a{color:#fff;border-bottom-color:var(--sign-line)}
+.sw-list li em{color:var(--sign-soft)}
+.sw-list li button:hover{background:rgba(255,255,255,.06)}
+.sw-loading{background:#141414}
+.sw-loading-sign{position:relative;background:var(--sign);border:0;border-radius:6px;padding:22px 22px 16px 26px;gap:18px;font-size:26px;font-weight:700;color:#fff;
+  box-shadow:0 0 0 6px var(--sign-frame)}
+.sw-loading-sign::before{content:"";position:absolute;left:0;right:0;top:8px;height:3px;background:#fff}
+.sw-loading-bar span{background:var(--led)}
+
+/* walk controls sit bottom right, clear of the signs */
+.sw-walk{left:auto;right:24px;transform:none}
+
+@media (max-width:760px){
+  .sw-walk{bottom:auto;top:84px;right:12px}
+  .sw-hero.sw-sign{left:12px;right:12px;bottom:12px;max-width:none}
+  .sw-ticker{font-size:17px;padding:9px 52px 9px 18px}
+  .sw-sign-body{padding:14px 18px 18px}.sw-sign-body::before{margin:0 -18px 14px}
+  .sw-card.sw-sign{width:calc(100vw - 28px)}
+  .sw-sign .sw-desc{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){.sw-caret.done{animation:none}}
+
+/* ------------------------------------------------------------------ Full-screen floors
+   The nav is a black station-sign strip docked to the top. The canvas fills everything
+   under it, and in the overview the three floors fill the canvas top to bottom. */
+.sw-root{--nav-h:56px}
+.sw-canvas{top:var(--nav-h);height:calc(100% - var(--nav-h))}
+.sw-nav{top:0;left:0;right:0;height:var(--nav-h);box-sizing:border-box;padding:0 18px;border-radius:0;gap:20px;
+  background:var(--sign,#161616);color:#fff;backdrop-filter:none;box-shadow:inset 0 3px 0 #fff,0 2px 0 #000;z-index:12}
+.sw-name{gap:10px;font-size:17px;font-weight:700!important;letter-spacing:-.01em;white-space:nowrap}
+.sw-nav nav{flex:1;justify-content:flex-start;gap:4px;color:#fff;flex-wrap:nowrap}
+.sw-tab{padding:7px 12px!important;border-radius:4px;font-size:14px;font-weight:600;color:#cfcfcf!important;white-space:nowrap}
+.sw-tab:hover,.sw-tab:focus-visible{color:#fff!important;background:rgba(255,255,255,.08)!important;outline:none}
+.sw-nav nav .sw-tab[aria-current="true"]{color:#111!important;background:#fff!important;font-weight:700}
+.sw-nav-end{display:flex;align-items:center;gap:14px}
+.sw-nav-lines{display:flex;gap:6px}
+.sw-nav-lines button{border-radius:50%;opacity:.55;transition:opacity .15s,transform .15s}
+.sw-nav-lines button:hover,.sw-nav-lines button.on{opacity:1}
+.sw-nav-lines button.on{box-shadow:0 0 0 2px #161616,0 0 0 4px #fff}
+.sw-nav-lines button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.sw-nav .sw-all{background:#fff!important;color:#111!important;font-weight:700;font-size:13px;padding:6px 14px!important;border-radius:4px}
+.sw-tip{top:calc(var(--nav-h) + 14px)}
+.sw-panel{top:calc(var(--nav-h) + 20px)}
+.sw-list{padding-top:calc(var(--nav-h) + 24px)}
+
+/* floor signs, pinned to the left edge at the middle of each floor */
+.sw-floor{position:absolute;left:0;transform:translateY(-50%);z-index:4;display:flex!important;flex-direction:column;align-items:flex-start;
+  padding:8px 14px 8px 16px!important;background:var(--sign,#161616)!important;color:#fff!important;border-radius:0 4px 4px 0;
+  box-shadow:inset 0 3px 0 #fff,0 8px 24px rgba(0,0,0,.3);text-align:left;transition:padding .15s}
+.sw-floor:hover,.sw-floor:focus-visible{padding-left:22px!important;outline:none}
+.sw-floor-name{font-weight:700;font-size:16px;letter-spacing:-.01em;padding-top:2px}
+.sw-floor-blurb{font-size:12px;color:var(--sign-soft,#bdbdbd);font-weight:500}
+
+/* where along the station you are */
+.sw-pan{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:12px;
+  padding:6px 8px;border-radius:999px;background:rgba(22,22,22,.86);color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.sw-pan button{width:30px;height:30px;border-radius:50%;font-size:12px!important;background:rgba(255,255,255,.1)!important}
+.sw-pan button:hover:not(:disabled),.sw-pan button:focus-visible{background:rgba(255,255,255,.25)!important;outline:none}
+.sw-pan button:disabled{opacity:.3;cursor:default}
+.sw-pan-track{position:relative;width:140px;height:3px;border-radius:2px;background:rgba(255,255,255,.25)}
+.sw-pan-track span{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fff}
+.sw-pan-hint{position:absolute;left:50%;bottom:66px;transform:translateX(-50%);margin:0;z-index:4;padding:6px 12px;border-radius:4px;
+  background:rgba(22,22,22,.86);color:#fff;font-size:12px;white-space:nowrap}
+
+@media (max-width:760px){
+  .sw-nav{padding:0 12px;gap:10px}
+  .sw-name span:last-child{display:none}
+  .sw-nav nav button.sw-tab{display:inline-block;padding:6px 8px!important;font-size:13px}
+  .sw-nav nav button.sw-tab:first-child,.sw-nav-lines{display:none}
+  .sw-floor{padding:6px 10px 6px 12px!important}
+  .sw-floor-blurb{display:none}
+}
+
+/* the train is pulling in for a project */
+.sw-train-skip{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);z-index:6;background:rgba(22,22,22,.86)!important;color:#fff!important}
+
+/* floor signs: small tabs under each floor's ceiling; the blurb shows on hover */
+.sw-floor{transform:none;padding:5px 12px 5px 14px!important}
+.sw-floor-name{font-size:14px;padding-top:1px}
+.sw-floor-blurb{display:none}
+.sw-floor:hover .sw-floor-blurb,.sw-floor:focus-visible .sw-floor-blurb{display:block}
+
+/* the mezzanine can be walked: a quiet hint at the top */
+.sw-walk-hint{position:absolute;left:50%;top:72px;transform:translateX(-50%);z-index:4;margin:0;padding:6px 12px;border-radius:999px;
+  background:rgba(22,22,22,.78);color:#fff;font-size:12px;white-space:nowrap;pointer-events:none}
+@media (hover:none){.sw-walk-hint{font-size:0}.sw-walk-hint::after{content:"Drag to look around · drag up to walk";font-size:12px}}

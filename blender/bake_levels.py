@@ -25,6 +25,36 @@ def level_of(z):
     return "street"
 
 
+def _tag_signs():
+    """Objects under a group named sign_* (wall maps, boards, hanging signs) get a chunk of their
+    own, so their small lettering gets enough of the light map to stay sharp. Tagged before
+    _prep, which drops the parents."""
+    for o in bpy.context.scene.objects:
+        p = o.parent
+        while p is not None:
+            if p.name.startswith("sign_"):
+                o["sign_chunk"] = 1
+                break
+            p = p.parent
+
+
+def _in_sign(o):
+    return bool(o.get("sign_chunk"))
+
+
+WALLS = {pre + w for pre in ("", "pf_", "mz_") for w in ("wall", "band", "trim", "trim2", "base")} | {"end_tile"}
+
+
+def _is_wall(o):
+    """Tile walls get one atlas per level and side, so the 4-1/4 in tiles stay crisp."""
+    return o.name.replace("fw_", "").split(".")[0] in WALLS
+
+
+def _is_edge(o):
+    """The yellow tactile strips get small atlases of their own, so every dome stays sharp."""
+    return o.name.replace("fw_", "").split(".")[0] == "edge"
+
+
 def _chunks():
     """Group the scene's meshes into (fourth wall?, level, slice) chunks and join each one."""
     groups = {}
@@ -36,7 +66,7 @@ def _chunks():
         zs = [p.z for p in pts]
         yc = min(max((min(ys) + max(ys)) / 2, DH_START + 0.1), DH_END - 0.1)
         zc = (min(zs) + max(zs)) / 2
-        k = int((yc - DH_START) // SLICE)
+        k = 300 if _is_wall(o) else int((yc - DH_START) // SLICE) + (100 if _in_sign(o) else 0) + (200 if _is_edge(o) else 0)
         groups.setdefault((o.name.startswith("fw_"), level_of(zc), k), []).append(o)
     out = []
     for (fw, lvl, k), objs in sorted(groups.items()):
@@ -46,7 +76,7 @@ def _chunks():
         bpy.context.view_layer.objects.active = objs[0]
         bpy.ops.object.join()
         j = bpy.context.view_layer.objects.active
-        j.name = ("fourth_wall" if fw else "main") + "_%s_%d" % (lvl, k)
+        j.name = ("fourth_wall" if fw else "main") + "_%s_%d" % (lvl, k) + ("_tile" if k >= 300 else "_edge" if k >= 200 else "")
         j.data.name = j.name   # so the glTF node and mesh carry the chunk name too
         # the fourth wall is only seen up close, so a smaller atlas is enough
         out.append((j, fw))
@@ -62,11 +92,18 @@ def bake_levels_and_export(path, res=2048, samples=96):
     sc.render.bake.margin = 6
     sc.render.bake.use_pass_direct = True
     sc.render.bake.use_pass_indirect = True
+    _tag_signs()
+    # the light map is diffuse only, so metals bake as matte paint (a metallic surface would bake black)
+    for mt in bpy.data.materials:
+        if mt.use_nodes:
+            for nd in mt.node_tree.nodes:
+                if nd.type == "BSDF_PRINCIPLED" and not nd.inputs["Metallic"].is_linked:
+                    nd.inputs["Metallic"].default_value = 0.0
     _prep()
     chunks = _chunks()
     res_of = {}
     for o, fw in chunks:
-        res_of[o.name] = res // 2 if fw else res
+        res_of[o.name] = res if "_tile" in o.name else res // 2 if (fw or "_edge" in o.name) else res
     tex_dir = os.path.join(HERE, "renders", "bake_dollhouse")
     os.makedirs(tex_dir, exist_ok=True)
     passes = {}
@@ -99,9 +136,15 @@ def bake_levels_and_export(path, res=2048, samples=96):
         bpy.ops.object.bake(type=btype, pass_filter=filt, use_clear=True)
         print("[bake] %s pass in %.0fs" % (kind, time.time() - t), flush=True)
 
-    run("color", "DIFFUSE", {"COLOR"}, 1)
-    run("glow", "EMIT", set(), 1)
-    run("light", "DIFFUSE", {"DIRECT", "INDIRECT"}, samples)
+    # several samples per texel for the color pass, so thin grout lines and letters are
+    # antialiased instead of hit-or-miss (one sample made the tile grid alias)
+    run("color", "DIFFUSE", {"COLOR"}, int(os.environ.get("COLOR_SAMPLES", "16")))
+    run("glow", "EMIT", set(), 4)
+    # REUSE_LIGHT=1 keeps the light pass saved by the previous bake of the same geometry
+    reuse = os.environ.get("REUSE_LIGHT") == "1" and all(
+        os.path.exists(os.path.join(tex_dir, "%s_light.npy" % o.name)) for o, _ in chunks)
+    if not reuse:
+        run("light", "DIFFUSE", {"DIRECT", "INDIRECT"}, samples)
 
     def px(img, r):
         a = np.empty(r * r * 4, dtype=np.float32)
@@ -118,13 +161,14 @@ def bake_levels_and_export(path, res=2048, samples=96):
 
     for o, _ in chunks:  # keep the raw passes so a later failure can't cost a re-bake
         r = res_of[o.name]
-        for kind in ("color", "light", "glow"):
+        for kind in (("color", "glow") if reuse else ("color", "light", "glow")):
             np.save(os.path.join(tex_dir, "%s_%s.npy" % (o.name, kind)), px(passes[(o.name, kind)], r).astype(np.float16))
     baked = {}
     for o, _ in chunks:
         r = res_of[o.name]
         col = px(passes[(o.name, "color")], r)
-        lit = px(passes[(o.name, "light")], r)
+        lit = np.load(os.path.join(tex_dir, "%s_light.npy" % o.name)).astype(np.float32) if reuse \
+            else px(passes[(o.name, "light")], r)
         glow = px(passes[(o.name, "glow")], r)
         mask = (col.max(-1) > 0.0005).astype(np.float32)
         # island-aware denoise: normalized blur so empty atlas space doesn't darken edges

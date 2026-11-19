@@ -1,0 +1,54 @@
+/* The newspaper front page a project opens as (Newspaper.tsx). Everything is prefixed pv- so
+   it can't collide with the station styles in app/subway.css. */
+
+.pv-card{position:fixed;z-index:30;max-height:calc(100vh - 120px);overflow:auto;will-change:transform,opacity;
+  color:#1a1712;-webkit-font-smoothing:antialiased;border-radius:4px;box-shadow:0 30px 70px rgba(10,6,0,.45)}
+.pv-card .sw-card-close{position:sticky!important;float:right;top:10px!important;right:10px!important;margin:10px 10px -42px 0;width:34px;height:34px;border-radius:50%;
+  background:#111!important;color:#fff!important;font-size:14px;z-index:3;border:0;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.pv-card a{color:inherit}
+.pv-bullet{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-family:var(--sw-franklin),Helvetica,Arial,sans-serif;font-weight:700;line-height:1;flex:none;vertical-align:middle}
+.pv-row{display:flex;flex-wrap:wrap;gap:8px}
+.pv-btn{display:inline-block;padding:8px 14px;border-radius:4px;background:#111;color:#fff!important;text-decoration:none;
+  font:700 14px var(--sw-franklin),Helvetica,Arial,sans-serif;border:0;cursor:pointer}
+.pv-transfers{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:14px;font:700 13px var(--sw-franklin),Helvetica,Arial,sans-serif}
+.pv-transfers button{background:none;border:0;padding:0;cursor:pointer}
+.pv-transfers span{margin-left:4px}
+
+/* ---------------------------------------------------------------- newspaper */
+.pv-newspaper{width:min(980px,calc(100vw - 32px));background:#f6f1e4;
+  background-image:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.5),transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(170,140,90,.12),transparent 50%)}
+.pv-paper{padding:22px 30px 30px;font-family:var(--pv-body),Georgia,serif}
+.pv-ears{display:grid;grid-template-columns:140px 1fr 140px;align-items:center;gap:12px;font:italic 400 13px/1.25 var(--pv-head),Georgia,serif;margin:0 36px 8px 0}
+.pv-ears p{margin:0;border:1px solid #1a1712;padding:6px 8px;text-align:center}
+.pv-ears small{font-style:normal;font-size:11px}
+.pv-mast{font:400 clamp(30px,5.6vw,66px)/1 var(--pv-mast),serif;text-align:center;margin:0;letter-spacing:.01em;white-space:nowrap}
+.pv-dateline{display:flex;justify-content:space-between;border-top:1px solid #1a1712;border-bottom:3px double #1a1712;padding:5px 2px;
+  font:700 11px var(--pv-head),Georgia,serif;letter-spacing:.06em}
+.pv-front{display:grid;grid-template-columns:1fr 230px;gap:22px;margin-top:16px}
+.pv-lead{border-right:1px solid #1a1712;padding-right:22px}
+.pv-kicker{margin:0 0 6px;display:flex;align-items:center;gap:8px;font:700 12px var(--sw-franklin),Helvetica,sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.pv-lead h2{font:700 clamp(28px,4vw,46px)/1.05 var(--pv-head),Georgia,serif;margin:0 0 10px}
+.pv-deck{font:italic 400 18px/1.4 var(--pv-head),Georgia,serif;margin:0 0 14px;color:#3b352b}
+.pv-lead figure{margin:0 0 14px}
+.pv-lead img{width:100%;max-height:300px;object-fit:cover;display:block;filter:sepia(.12) contrast(1.02)}
+.pv-lead figcaption{font:400 12px/1.4 var(--sw-franklin),Helvetica,sans-serif;color:#5b5446;margin-top:5px}
+.pv-cols{columns:2 220px;column-gap:22px;column-rule:1px solid #cdbf9f;font-size:15px;line-height:1.5}
+.pv-cols p{margin:0 0 10px;text-align:justify;hyphens:auto}
+.pv-cols h3{font:700 15px var(--pv-head),Georgia,serif;margin:0 0 4px;break-after:avoid}
+.pv-cols>div{break-inside:avoid}
+.pv-drop:first-letter{float:left;font:700 54px/0.82 var(--pv-head),Georgia,serif;margin:4px 6px 0 0}
+.pv-side h3{font:700 13px var(--sw-franklin),Helvetica,sans-serif;letter-spacing:.12em;text-transform:uppercase;border-top:3px solid #1a1712;padding-top:6px;margin:0 0 8px}
+.pv-side h3:not(:first-child){margin-top:18px}
+.pv-side p{margin:0 0 8px;font-size:14px;line-height:1.45}
+.pv-num b{display:block;font:700 34px/1 var(--pv-head),Georgia,serif}
+.pv-num{font:400 12px var(--sw-franklin),Helvetica,sans-serif!important;color:#4a4335}
+.pv-links{list-style:none;padding:0;margin:0}
+.pv-links li{border-bottom:1px dotted #8a7d63;padding:5px 0;font:700 14px var(--pv-head),Georgia,serif}
+@media (max-width:760px){
+  .pv-paper{padding:16px}
+  .pv-front{grid-template-columns:1fr}
+  .pv-lead{border-right:0;padding-right:0}
+  .pv-ears{grid-template-columns:1fr;margin-right:40px}
+  .pv-ears p{display:none}
+}
+
