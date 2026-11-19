@@ -30,7 +30,9 @@ def materials():
 
 
 def segment(m, y0, y1, walls=(-1, 1), stair_gap=False):
-    """stair_gap: leave the ceiling open over the right platform for the exit stairs."""
+    """stair_gap: leave the ceiling open over a platform for stairs: True or 1 = the right
+    (+X) platform, -1 = the left (-X) one. Its columns and ceiling lamp are left out."""
+    gs = 0 if not stair_gap else (-1 if stair_gap == -1 else 1)
     L = y1 - y0
     yc = (y0 + y1) / 2
     objs = []
@@ -46,11 +48,12 @@ def segment(m, y0, y1, walls=(-1, 1), stair_gap=False):
             objs.append(cube("trim2", (sx * (WALL_X - 0.015), yc, 3.8), (0.03, L, 0.1), m["trim"]))
             objs.append(cube("base", (sx * (WALL_X - 0.01), yc, PLAT_Z + 0.12), (0.04, L, 0.24), m["base"]))
     # ceiling and lamp strips
-    if stair_gap:
-        objs.append(cube("ceil", ((-WALL_X - 0.1 + 1.9) / 2, yc, CEIL_Z + 0.05), (WALL_X + 0.1 + 1.9, L, 0.1), m["ceiling"]))
+    if gs:
+        # the ceiling stops 1.9 m past the middle, on the far side from the stairs
+        objs.append(cube("ceil", (-gs * (WALL_X + 0.1 - 1.9) / 2, yc, CEIL_Z + 0.05), (WALL_X + 0.1 + 1.9, L, 0.1), m["ceiling"]))
     else:
         objs.append(cube("ceil", (0, yc, CEIL_Z + 0.05), (2 * WALL_X + 0.2, L, 0.1), m["ceiling"]))
-    for x in ((-3.5, 0) if stair_gap else (-3.5, 3.5, 0)):
+    for x in ((-gs * 3.5, 0) if gs else (-3.5, 3.5, 0)):
         objs.append(cube("lampbox", (x, yc, CEIL_Z - 0.03), (0.22, L - 0.6, 0.06), m["ceiling"]))
         objs.append(cube("lamp", (x, yc, CEIL_Z - 0.065), (0.14, L - 0.8, 0.01), m["lamp"]))
     # track bed, sleepers, rails
@@ -64,7 +67,7 @@ def segment(m, y0, y1, walls=(-1, 1), stair_gap=False):
     # columns
     yy = math.ceil(y0 / COL_STEP) * COL_STEP
     while yy < y1:
-        for sx in ((-1,) if stair_gap else (-1, 1)):
+        for sx in ((-gs,) if gs else (-1, 1)):
             objs.append(cyl("column", (sx * COL_X, yy, (PLAT_Z + CEIL_Z) / 2), 0.13, CEIL_Z - PLAT_Z, m["column"]))
             objs.append(cyl("capital", (sx * COL_X, yy, CEIL_Z - 0.12), 0.19, 0.16, m["column_cap"]))
             objs.append(cyl("plinth", (sx * COL_X, yy, PLAT_Z + 0.08), 0.18, 0.16, m["column_cap"]))

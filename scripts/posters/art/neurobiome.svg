@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 680 748">
+  <defs><style>@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@500;800&amp;family=Caveat:wght@700&amp;display=block");</style></defs>
+  <!-- Neurobiome: a happy gut whispering to a happy brain, with microbes along for the ride -->
+  <rect width="680" height="748" fill="#fdf1d8"/>
+  <circle cx="340" cy="380" r="300" fill="#f9e2b0"/>
+  <!-- the gut-brain line -->
+  <path d="M340 250 C 280 320, 400 380, 330 420 S 298 450, 298 462" stroke="#1f5a3a" stroke-width="7" stroke-dasharray="2 18" stroke-linecap="round" fill="none"/>
+  <!-- brain -->
+  <g transform="translate(340 170)" stroke="#1f5a3a" stroke-width="6">
+    <g fill="#f7a8bd">
+      <circle cx="-70" cy="10" r="56"/><circle cx="-30" cy="-40" r="58"/><circle cx="30" cy="-42" r="58"/><circle cx="72" cy="8" r="56"/><circle cx="0" cy="30" r="64"/>
+    </g>
+    <g fill="#f7a8bd" stroke="none"><circle cx="-70" cy="10" r="52"/><circle cx="-30" cy="-40" r="54"/><circle cx="30" cy="-42" r="54"/><circle cx="72" cy="8" r="52"/><circle cx="0" cy="30" r="60"/></g>
+    <path d="M0 -92 q-14 30 0 60 q14 30 0 60" fill="none" stroke="#d9748f" stroke-width="5"/>
+    <path d="M-92 -10 q20 -6 34 8M60 -30 q18 0 30 16M-60 -60 q14 10 12 26" fill="none" stroke="#d9748f" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="-26" cy="34" r="7" fill="#1f5a3a" stroke="none"/><circle cx="26" cy="34" r="7" fill="#1f5a3a" stroke="none"/>
+    <path d="M-18 56 q18 16 36 0" fill="none" stroke-linecap="round"/>
+    <circle cx="-48" cy="52" r="10" fill="#ff7f9b" stroke="none" opacity=".55"/><circle cx="48" cy="52" r="10" fill="#ff7f9b" stroke="none" opacity=".55"/>
+  </g>
+  <!-- gut: a happy stomach on its food pipe -->
+  <g transform="translate(350 610)" stroke="#1f5a3a" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M-52 -140 v70" fill="none" stroke-width="30"/>
+    <path d="M-52 -140 v74" fill="none" stroke="#f6b48e" stroke-width="18"/>
+    <path d="M-66 -84 C 20 -112 140 -70 128 20 C 118 104 -6 126 -96 86 C -142 64 -132 -6 -88 4 C -58 12 -70 -40 -66 -84 Z" fill="#f6b48e"/>
+    <path d="M70 -54 q40 30 32 80" fill="none" stroke="#d98a63" stroke-width="5"/>
+    <circle cx="-8" cy="20" r="7" fill="#1f5a3a" stroke="none"/><circle cx="40" cy="20" r="7" fill="#1f5a3a" stroke="none"/>
+    <path d="M2 40 q14 12 28 0" fill="none"/>
+    <circle cx="-30" cy="36" r="10" fill="#ff8a6b" stroke="none" opacity=".5"/><circle cx="62" cy="36" r="10" fill="#ff8a6b" stroke="none" opacity=".5"/>
+  </g>
+  <!-- speech bubbles -->
+  <g font-family="Caveat, 'Comic Sans MS', cursive" font-weight="700" fill="#1f5a3a">
+    <g transform="translate(470 470)"><path d="M0 0 h120 q18 0 18 18 v34 q0 18 -18 18 h-84 l-30 22 l6 -22 h-12 q-18 0 -18 -18 v-34 q0 -18 18 -18z" fill="#fff" stroke="#1f5a3a" stroke-width="5"/><text x="58" y="48" font-size="36" text-anchor="middle">psst!</text></g>
+    <g transform="translate(70 300)"><path d="M0 0 h112 q18 0 18 18 v34 q0 18 -18 18 h-12 l6 22 l-30 -22 h-76 q-18 0 -18 -18 v-34 q0 -18 18 -18z" fill="#fff" stroke="#1f5a3a" stroke-width="5"/><text x="56" y="48" font-size="36" text-anchor="middle">oh hi!</text></g>
+  </g>
+  <!-- microbes riding along -->
+  <g stroke="#1f5a3a" stroke-width="4">
+    <g transform="translate(250 360) rotate(-20)"><rect x="-30" y="-15" width="60" height="30" rx="15" fill="#8fd6a6"/><circle cx="-8" cy="-2" r="3.5" fill="#1f5a3a" stroke="none"/><circle cx="8" cy="-2" r="3.5" fill="#1f5a3a" stroke="none"/><path d="M30 0 q12 -8 20 4" fill="none"/></g>
+    <g transform="translate(430 330)"><circle r="22" fill="#9cc4ff"/><circle cx="-7" cy="-3" r="3.5" fill="#1f5a3a" stroke="none"/><circle cx="7" cy="-3" r="3.5" fill="#1f5a3a" stroke="none"/><path d="M-6 7 q6 5 12 0" fill="none"/></g>
+    <g transform="translate(420 440) rotate(15)"><ellipse rx="26" ry="18" fill="#c8a8f0"/><circle cx="-8" cy="-2" r="3.5" fill="#1f5a3a" stroke="none"/><circle cx="8" cy="-2" r="3.5" fill="#1f5a3a" stroke="none"/><path d="M-26 0 l-10 -6M-26 4 l-10 4M26 0 l10 -6M26 4 l10 4" fill="none"/></g>
+    <g transform="translate(240 470)"><circle r="18" fill="#ffd66b"/><circle cx="-6" cy="-2" r="3" fill="#1f5a3a" stroke="none"/><circle cx="6" cy="-2" r="3" fill="#1f5a3a" stroke="none"/></g>
+    <g transform="translate(560 220) rotate(30)"><rect x="-24" y="-12" width="48" height="24" rx="12" fill="#ffb0c4"/><circle cx="-6" cy="-1" r="3" fill="#1f5a3a" stroke="none"/><circle cx="6" cy="-1" r="3" fill="#1f5a3a" stroke="none"/></g>
+    <g transform="translate(120 520)"><circle r="16" fill="#8fd6a6"/><circle cx="-5" cy="-2" r="3" fill="#1f5a3a" stroke="none"/><circle cx="5" cy="-2" r="3" fill="#1f5a3a" stroke="none"/></g>
+  </g>
+</svg>

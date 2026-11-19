@@ -15,10 +15,15 @@ is generated here, so the whole scene can be rebuilt from code.
 | `props/newsstand.py` | The Books & Writing kiosk with randomly sized books. |
 | `props/stairs.py` | Exit stairs up to a street with lamp globes, trees and brownstones. |
 | `props/furniture.py` | Benches, trash cans, the glowing lightbox under each project tile. |
-| `props/train.py` | A friendly stainless subway car (generic, no real-world branding). |
+| `props/train.py` | `car()`: one stainless subway car, parametric (`front`, `route`, `color`, `seed`, `coupler`). |
+| `props/train_body.py` | Curved hollow shell, window and door cuts, fluting, seams, rivets, roof gear, sliding door leaves. |
+| `props/train_cab.py` | Front cab (destination board, route sign, headlights, wiper, bumper), grab handles, coupler, diaphragm. |
+| `props/train_truck.py` | Two trucks per car: flanged wheels on the rail heads, side frames, springs, brake shoes; underfloor boxes. |
+| `props/train_interior.py` | Cream walls, orange bench seats, poles, ad strip of project cards, ceiling light strips. |
+| `props/train_util.py` | Car dimensions and the small mesh builder (boxes, extruded outlines, booleans). |
 | `build_station.py` | Puts it all together. `preview` renders stills; `bake` bakes light and exports `public/subway/station.glb`. |
 | `bake.py` | Joins the station into 10 m slices, unwraps each, bakes Cycles light + color into one atlas per slice, exports glTF. |
-| `build_train.py` | Exports `public/subway/train.glb` (lit live in the browser because it moves). |
+| `build_train.py` | Exports `public/subway/train.glb` (lit live in the browser because it moves). `preview` renders train stills to `renders/`. |
 
 ## Run it
 
@@ -27,6 +32,8 @@ python -m venv .venv && .venv/bin/pip install bpy==5.2.3   # Blender as a Python
 .venv/bin/python blender/build_station.py preview          # stills in blender/renders/
 .venv/bin/python blender/build_station.py bake 2048 24     # station.glb + layout.json (~15 min on 4 CPU cores)
 .venv/bin/python blender/build_train.py                    # train.glb
+.venv/bin/python blender/build_train.py preview 48         # train stills in blender/renders/
+npm run compress                                           # Draco-compresses station.glb too (lossy re-encode)
 ```
 
 Fonts in `fonts/` are from Google Fonts under the SIL Open Font License.

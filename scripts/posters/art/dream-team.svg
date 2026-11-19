@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 520 680">
+  <defs><style>@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@500;800&amp;family=Caveat:wght@700&amp;display=block");</style></defs>
+  <!-- Dream Team: a report travels past four friendly agents to a booked specialist -->
+  <rect width="520" height="680" fill="#dce9ff"/>
+  <circle cx="430" cy="90" r="46" fill="#ffe08a"/>
+  <g fill="#fff" opacity=".9"><ellipse cx="110" cy="40" rx="60" ry="18"/><ellipse cx="150" cy="30" rx="38" ry="20"/><ellipse cx="420" cy="300" rx="52" ry="15"/><ellipse cx="452" cy="290" rx="30" ry="16"/></g>
+  <!-- the report -->
+  <g transform="translate(46 78) rotate(-6)">
+    <rect width="150" height="190" rx="12" fill="#fff" stroke="#1e3f8a" stroke-width="5"/>
+    <rect x="22" y="22" width="106" height="62" rx="8" fill="#1e3f8a"/>
+    <path d="M75 32v42M58 44q17 8 34 0M58 56q17 8 34 0M58 68q17 6 34 0" stroke="#bcd3ff" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <g stroke="#9fb3d9" stroke-width="7" stroke-linecap="round"><path d="M24 108h102"/><path d="M24 128h86"/><path d="M24 148h96"/><path d="M24 168h60"/></g>
+  </g>
+  <!-- the route -->
+  <path d="M190 200 C 300 210, 330 250, 300 300 S 150 360, 170 420 S 300 470, 330 450" stroke="#1e3f8a" stroke-width="6" stroke-dasharray="4 16" stroke-linecap="round" fill="none"/>
+  <!-- four agents -->
+  <g stroke="#1e3f8a" stroke-width="4">
+    <g transform="translate(262 214)"><path d="M0-30v-12" /><circle cy="-46" r="6" fill="#ffd34d"/><circle r="30" fill="#ffd34d"/><circle cx="-10" cy="-4" r="4" fill="#1e3f8a" stroke="none"/><circle cx="10" cy="-4" r="4" fill="#1e3f8a" stroke="none"/><path d="M-9 9q9 8 18 0" fill="none"/></g>
+    <g transform="translate(312 304)"><path d="M0-30v-12"/><circle cy="-46" r="6" fill="#ff9fb7"/><circle r="30" fill="#ff9fb7"/><circle cx="-10" cy="-4" r="4" fill="#1e3f8a" stroke="none"/><circle cx="10" cy="-4" r="4" fill="#1e3f8a" stroke="none"/><path d="M-9 9q9 8 18 0" fill="none"/></g>
+    <g transform="translate(196 370)"><path d="M0-30v-12"/><circle cy="-46" r="6" fill="#8fe0c0"/><circle r="30" fill="#8fe0c0"/><circle cx="-10" cy="-4" r="4" fill="#1e3f8a" stroke="none"/><circle cx="10" cy="-4" r="4" fill="#1e3f8a" stroke="none"/><path d="M-9 9q9 8 18 0" fill="none"/></g>
+    <g transform="translate(206 450)"><path d="M0-30v-12"/><circle cy="-46" r="6" fill="#c6b2ff"/><circle r="30" fill="#c6b2ff"/><circle cx="-10" cy="-4" r="4" fill="#1e3f8a" stroke="none"/><circle cx="10" cy="-4" r="4" fill="#1e3f8a" stroke="none"/><path d="M-9 9q9 8 18 0" fill="none"/></g>
+  </g>
+  <!-- the specialist -->
+  <g transform="translate(400 420)">
+    <path d="M-62 120 q0-78 62-78 q62 0 62 78z" fill="#fff" stroke="#1e3f8a" stroke-width="5"/>
+    <path d="M0 42 l-14 40 l14 26 l14-26z" fill="#7fb0ff"/>
+    <path d="M-26 50 q-10 40 6 52 a10 10 0 1 0 2 0" stroke="#1e3f8a" stroke-width="4" fill="none"/>
+    <circle cy="0" r="38" fill="#f3c9a8" stroke="#1e3f8a" stroke-width="5"/>
+    <path d="M-38 -4 q4 -42 38 -42 q36 0 38 42 q-14 -22 -38 -24 q-24 2 -38 24z" fill="#5a3b2e"/>
+    <circle cx="-13" cy="4" r="4" fill="#1e3f8a"/><circle cx="13" cy="4" r="4" fill="#1e3f8a"/>
+    <path d="M-12 18 q12 10 24 0" stroke="#1e3f8a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="-24" cy="14" r="6" fill="#ffb3a7" opacity=".7"/><circle cx="24" cy="14" r="6" fill="#ffb3a7" opacity=".7"/>
+  </g>
+  <!-- booked -->
+  <g transform="translate(40 556)">
+    <rect width="300" height="100" rx="16" fill="#fff" stroke="#1e3f8a" stroke-width="5"/>
+    <circle cx="52" cy="50" r="28" fill="#00933c"/>
+    <path d="M38 50l10 10l18-20" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="96" y="44" font-family="Libre Franklin, Helvetica, sans-serif" font-weight="800" font-size="28" fill="#1e3f8a">Booked!</text>
+    <text x="96" y="76" font-family="Libre Franklin, Helvetica, sans-serif" font-weight="500" font-size="20" fill="#3b4a6b">Specialist · Tue 10:30</text>
+  </g>
+</svg>
