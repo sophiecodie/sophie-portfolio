@@ -613,6 +613,7 @@ export default function Experience() {
                     <a className="sw-btn" href={`mailto:${site.email}`}>Email</a>
                     <a className="sw-btn" href={site.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
                     <a className="sw-btn" href={site.github} target="_blank" rel="noopener">GitHub ↗</a>
+                    <a className="sw-btn" href={site.website} target="_blank" rel="noopener">Website ↗</a>
                     <a className="sw-btn" href={site.resume} target="_blank" rel="noopener">Résumé ↗</a>
                   </div>
                 </div>
