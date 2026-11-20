@@ -2,7 +2,7 @@
 
 /* ------------------------------------------------------------ the typed line, bottom left
    No box: amber LED text straight on the scene, over a soft dark corner so it stays readable. */
-.sw-say{position:absolute;left:0;bottom:0;z-index:6;max-width:min(640px,100%);padding:70px 140px 22px 26px;pointer-events:none;
+.sw-say{position:absolute;left:0;bottom:0;z-index:6;max-width:min(640px,100%);padding:48px 110px 20px 24px;pointer-events:none;
   background:radial-gradient(120% 100% at 0% 100%,rgba(0,0,0,.72) 0%,rgba(0,0,0,.45) 45%,rgba(0,0,0,0) 75%)}
 .sw-say button{pointer-events:auto}
 .sw-say-top{display:flex;align-items:center;gap:10px;margin-bottom:4px}
@@ -12,7 +12,7 @@
   display:inline-flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .sw-root .sw-say-step button:hover:not(:disabled),.sw-root .sw-say-step button:focus-visible{background:#fff;color:#111;outline:none}
 .sw-root .sw-say-step button:disabled{opacity:.3;cursor:default}
-.sw-say-line{margin:0;font-family:"Subway Ticker",ui-monospace,Menlo,monospace;font-size:24px;line-height:1.3;letter-spacing:.06em;text-transform:uppercase;
+.sw-say-line{margin:0;font-family:"Subway Ticker",ui-monospace,Menlo,monospace;font-size:19px;line-height:1.3;letter-spacing:.06em;text-transform:uppercase;
   color:var(--led,#ff9a1f);text-shadow:0 0 4px rgba(255,154,31,.85),0 0 14px rgba(255,120,20,.5),0 2px 8px rgba(0,0,0,.9);min-height:1.3em}
 .sw-say-foot{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:8px}
 .sw-say-hint{font-size:12px;color:rgba(255,255,255,.78);text-shadow:0 1px 4px rgba(0,0,0,.9)}
@@ -20,7 +20,7 @@
 .sw-root .sw-say-act:hover,.sw-root .sw-say-act:focus-visible{outline:2px solid var(--led,#ff9a1f);outline-offset:2px}
 @media (max-width:760px){
   .sw-say{padding:56px 40px 14px 14px;max-width:100%}
-  .sw-say-line{font-size:18px}
+  .sw-say-line{font-size:15px}
 }
 
 /* the welcome sign: a close button, and room for it */

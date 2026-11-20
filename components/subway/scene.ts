@@ -670,6 +670,13 @@ export class DollhouseScene {
     return (obj ?? lvl)?.id ?? null;
   }
 
+  /** True when a Blender point is in front of the camera (toScreen is meaningless behind it). */
+  ahead(v: number[]): boolean {
+    this.camera.updateMatrixWorld();
+    const p = b2t(v).project(this.camera);
+    return p.z > -1 && p.z < 1;
+  }
+
   /** Where a hotspot sits on the screen, in client pixels (for the card's opening animation). */
   screenRect(id: string): Rect | null {
     const h = this.hotSpec.get(id);

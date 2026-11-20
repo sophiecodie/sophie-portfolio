@@ -8,6 +8,7 @@
 import { useEffect, useState } from "react";
 import { projects } from "@/data/projects";
 import { site } from "@/data/site";
+import { ScrollCue } from "./Hints";
 import "./boards.css";
 
 export type Line = { key: string; name: string; letter: string; color: string; stops: string[]; about: string };
@@ -124,6 +125,7 @@ export function LineMap({ lines, bulletOf, filter, setFilter, onGo }: {
             <Strip line={l} bulletOf={bulletOf} onGo={onGo} />
           </section>
         ))}
+        <ScrollCue />
       </div>
     </aside>
   );
@@ -168,6 +170,7 @@ export function Arrivals({ ids, waits, bulletOf, lineOf, onGo }: {
             </li>
           );
         })}
+        <ScrollCue as="li" />
       </ol>
       <div className="sw-arr-note" aria-hidden="true">
         <span>STAND CLEAR OF THE CLOSING DOORS · BOOKS &amp; WRITING EXPRESS AT THE NEWSSTAND · ABOUT &amp; CONTACT UP THE STAIRS TO THE STREET · </span>
@@ -217,6 +220,7 @@ export function AllStops({ lines, bulletOf, onGo, onClose, onAbout, here, failed
             </button>
           </div>
         </div>
+        <ScrollCue />
       </div>
     </div>
   );

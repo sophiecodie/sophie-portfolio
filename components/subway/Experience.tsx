@@ -10,6 +10,7 @@
 import StreetMoodToggle from "../street/StreetMoodToggle";
 import Newspaper, { newspaperClass } from "../posters/Newspaper";
 import { AllStops, Arrivals, LineMap, Wayfinder } from "./Boards";
+import { PosterPointers, ScrollCue, StepArrows } from "./Hints";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { projects } from "@/data/projects";
 import { favoriteBooks, writing } from "@/data/library";
@@ -54,13 +55,16 @@ const LABEL: Record<string, string> = {
 };
 // what the typed line at the bottom left says at each stop
 const CAPTION: Record<string, string> = {
-  title: "Pick a project poster to see it",
+  title: "Projects are the posters on the wall. Click one",
   map: "Choose a line. Each one groups projects by what they're about",
   board: "Every project is a train. Pick one from the board",
   newsstand: "Favorite books and things I've written",
   exit: "Up the stairs: who I am and how to reach me",
   street: "About me and how to reach me",
 };
+// After "Enter station", the camera turns from the arriving train to the poster wall, so the
+// first thing you see is the projects (the opening shot itself stays on the train).
+const POSTER_VIEW = { pos: [2.05, 6.8, 1.6], look: [4.9, 12.0, 1.8], fov: 58 };
 const WHERE: Record<string, string> = { title: "Platform", map: "Mezzanine · Line map", board: "Mezzanine · Arrivals", newsstand: "Mezzanine · Newsstand", exit: "Mezzanine · Exit", street: "Street" };
 const bulletOf = (id: string): [string, string, string?] => BULLET[id] ?? ["S", "#808183"];
 
@@ -100,6 +104,10 @@ function Ticker({ text, delay = 250, speed = 40 }: { text: string; delay?: numbe
 
 const titleOf = (id: string) => (id === "reading" ? "Books & Writing" : projects.find((p) => p.id === id)?.title ?? id);
 const labelOf = (hot: string) => (hot.startsWith("project:") ? titleOf(hot.slice(8)) : LABEL[hot] ?? hot);
+// what a Street View-style arrow says it leads to
+const stepOf = (stop: string) => stop.startsWith("project:")
+  ? { id: stop, label: titleOf(stop.slice(8)), bullet: stop.slice(8) }
+  : { id: stop, label: stop === "title" ? "Start of the platform" : LABEL[stop] ?? stop };
 const hashOf = (stop: string) => (stop.startsWith("project:") ? stop.slice(8) : stop === "newsstand" ? "books" : stop === "street" ? "about" : stop);
 
 export default function Experience() {
@@ -280,6 +288,21 @@ export default function Experience() {
     if (next) void go(next);
   }, [go]);
 
+  /** Close the welcome sign and turn to face the project posters. */
+  const enterStation = useCallback(async () => {
+    setWelcome(false);
+    const s = sceneRef.current, L = layoutRef.current;
+    if (!s || !L || busyRef.current || stopRef.current !== "title") return;
+    busyRef.current = true; setBusy(true);
+    try {
+      // swing out over the platform edge first, clear of the column line
+      await s.fly(L.stops.title, "inside" as Mode, [[1.55, 3.6, 1.6]]);
+      s.setActiveLevel("platform");
+    } finally {
+      busyRef.current = false; setBusy(false);
+    }
+  }, []);
+
   const skipTrain = (): void => {
     sceneRef.current?.finishTrain();
   };
@@ -313,10 +336,15 @@ export default function Experience() {
           : hash === "about" ? "street"
           : hash === "books" || hash === "reading" ? "newsstand"
           : ["title", "map", "board", "exit"].includes(hash) ? hash : null;
-        if (target) setTimeout(() => void go(target), 400);
+        if (target) {
+          layout.stops.title = POSTER_VIEW;
+          setTimeout(() => void go(target), 400);
+        }
         else {
           // the opening: stand on the platform by the title sign while the train pulls in
           s.jump("title", "inside" as Mode);
+          // from now on the platform's first stop faces the posters
+          layout.stops.title = POSTER_VIEW;
           s.setActiveLevel("platform");
           s.setFourthWall(true, true);
           setWelcome(true);
@@ -374,7 +402,7 @@ export default function Experience() {
       if (e.key === "Escape") {
         if (cardRef.current) void closeCard();
         else if (listOpen) setListOpen(false);
-        else if (welcome && stopRef.current === "title") setWelcome(false);
+        else if (welcome && stopRef.current === "title") void enterStation();
         else if (stopRef.current) void goOverview();
       }
       // inside a floor, up/down (or W/S) walk the way you are facing
@@ -393,7 +421,7 @@ export default function Experience() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [closeCard, goOverview, walk, listOpen, welcome]);
+  }, [closeCard, goOverview, walk, listOpen, welcome, enterStation]);
 
   // ------------------------------------------------------------ pointer: hover, drag, click
   const onPointerDown = (e: React.PointerEvent) => {
@@ -446,8 +474,9 @@ export default function Experience() {
     if (stop === "title" && welcome) return null;
     // flying between stops: stay quiet until we land (the train is the exception)
     if (busy && !trainMoving) return null;
-    const step = level !== null ? { onPrev: prevStop ? () => void go(prevStop) : null, onNext: nextStop ? () => void go(nextStop) : null } : {};
-    const walkHint = level !== null ? (touch ? "Drag to look around · drag up to walk" : "Drag to look around · scroll or ↑ ↓ to walk · ← → next stop") : undefined;
+    // next/previous stop now live in the Street View-style arrows (StepArrows)
+    const step = {};
+    const walkHint = level !== null ? (touch ? "Drag to look around · drag up to walk" : "Drag to look around · scroll or ↑ ↓ to walk · ← → or the arrows for the next stop") : undefined;
     const pid = stop?.startsWith("project:") ? stop.slice(8) : null;
     const where = stop === null ? "Whole station" : pid ? `Platform · Stop ${BULLET[pid]?.[0] ?? ""}` : WHERE[stop] ?? labelOf(stop);
     if (trainMoving) return { where, text: "Train approaching. Please stand back", action: { label: "Skip the train", onClick: skipTrain } };
@@ -533,7 +562,7 @@ export default function Experience() {
       {ready && stop === "title" && welcome && !card && (
         <div className="sw-hero sw-sign" role="dialog" aria-label="Welcome">
           <Ticker text={arriving ? "NOW ARRIVING  SOPHIE SHIH'S PORTFOLIO" : "STAND CLEAR OF THE CLOSING DOORS  PICK A STOP"} delay={arriving ? 400 : 100} />
-          <button className="sw-card-close" onClick={() => setWelcome(false)} aria-label="Close the welcome sign">✕</button>
+          <button className="sw-card-close" onClick={() => void enterStation()} aria-label="Close the welcome sign">✕</button>
           <div className="sw-sign-body">
             <h1>Sophie Shih&apos;s<br />Portfolio Station</h1>
             <div className="sw-bullets" role="group" aria-label="Projects">
@@ -545,7 +574,7 @@ export default function Experience() {
             </div>
             <p className="sw-desc">{site.lede}</p>
             <div className="sw-row">
-              <button className="sw-btn" onClick={() => setWelcome(false)}>Enter station →</button>
+              <button className="sw-btn" onClick={() => void enterStation()}>Enter station →</button>
               <button className="sw-btn ghost" onClick={() => setListOpen(true)}>All stops</button>
             </div>
           </div>
@@ -563,6 +592,18 @@ export default function Experience() {
       {/* The typed line at the bottom left: where you are, what you're pointing at, what to do */}
       {say && <Wayfinder {...say} />}
 
+      {/* Hints: arrows over the posters at the start of the platform, and Street View-style
+          arrows to the next and previous stop on any floor */}
+      {ready && stop === "title" && !welcome && !card && !listOpen && !busy && (
+        <PosterPointers scene={sceneRef.current} y0={layoutRef.current?.projectY0 ?? 10.6} step={layoutRef.current?.projectStep ?? 3.8} ids={PROJECT_IDS} bulletOf={bulletOf} titleOf={titleOf} onGo={goId} />
+      )}
+      {ready && level !== null && !card && !listOpen && !(stop === "title" && welcome) && !busy && (
+        <div className={stop === "map" || stop === "board" ? "sw-go-wrap on-board" : "sw-go-wrap"}>
+          <StepArrows bulletOf={bulletOf} onGo={(id) => void go(id)} pulse={stop === "title"}
+            prev={prevStop ? stepOf(prevStop) : null} next={nextStop ? stepOf(nextStop) : null} />
+        </div>
+      )}
+
       {/* The opened card: a case study, the books, or about */}
       {ready && card && (
         <>
@@ -577,6 +618,7 @@ export default function Experience() {
               transfers={(lineOf(project.id)?.stops ?? []).filter((id) => id !== project.id).map((id) => ({
                 id, title: titleOf(id), label: BULLET[id]?.[0] ?? "S", color: BULLET[id]?.[1] ?? "#808183", ink: BULLET[id]?.[2] }))}
               onTransfer={(id) => void go(id === "reading" ? "newsstand" : "project:" + id)} />
+            <ScrollCue label="Keep reading" />
           </article>
           ) : (
           <article ref={cardEl} className="sw-card sw-sign" role="dialog" aria-modal="true"
@@ -620,6 +662,7 @@ export default function Experience() {
               </>
             )}
             {trainMoving && <button className="sw-skip" onClick={skipTrain}>Skip the train</button>}
+            <ScrollCue />
           </article>
           )}
         </>
